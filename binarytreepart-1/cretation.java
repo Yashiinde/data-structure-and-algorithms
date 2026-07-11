@@ -5,8 +5,8 @@ public class cretation {
         node right;
         node(int data){
             this.data=data;
-            this.left=left;
-            this.right=right;
+            this.left=null;
+            this.right=null;
         }
     }
     static class Binarytree{
@@ -31,10 +31,26 @@ public class cretation {
         preorder(root.left);
         preorder(root.right);
     }
+    public static void inorder(node root){
+        if(root==null){
+            return;
+        }
+        inorder(root.left);
+        System.out.print(root.data+" ");
+        inorder(root.right);
+    }
+    public static void postorder(node root){
+        if(root==null){
+            return;
+        }
+        postorder(root.left);
+        postorder(root.right);
+        System.out.println(root.data+" ");
+    }
     public static void main(String[] args) {
         int nodes[]={1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
         Binarytree tree= new Binarytree();
         node root=tree.buildtree(nodes);
-        preorder(root);
+        postorder(root);
     }
 }
