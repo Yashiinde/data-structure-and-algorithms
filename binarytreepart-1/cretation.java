@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class cretation {
     static class node{
         int data;
@@ -47,10 +49,39 @@ public class cretation {
         postorder(root.right);
         System.out.println(root.data+" ");
     }
+    public static void levelorder(node root){
+        if(root==null){
+            return;
+
+        }
+        Queue<node> q=new LinkedList<>();
+        q.add(root);
+        q.add(null);
+        while (!q.isEmpty()) {
+            node currnpde=q.remove();
+            if(currnpde==null){
+                if(q.isEmpty()){
+                    break;
+                }else{
+                    System.out.println();
+                    q.add(null);
+                }
+            }else{
+                System.out.print(currnpde.data+" ");
+                if(currnpde.left!=null){
+                    q.add(currnpde.left);
+                }
+                if(currnpde.right!=null){
+                    q.add(currnpde.right);
+                }
+            }
+        }
+
+    }
     public static void main(String[] args) {
         int nodes[]={1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
         Binarytree tree= new Binarytree();
         node root=tree.buildtree(nodes);
-        postorder(root);
+        levelorder(root);
     }
 }
