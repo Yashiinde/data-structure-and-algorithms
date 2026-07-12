@@ -78,10 +78,47 @@ public class cretation {
         }
 
     }
+    public static int height(node root){
+        if(root==null){
+            return 0;
+        }
+        int lh=height(root.left);
+        int rh=height(root.right);
+        return Math.max(lh, rh)+1;
+    }
+    public static int count(node root){
+        if(root==null){
+            return 0;
+        }
+        int lh=count(root.left);
+        int rh=count(root.right);
+        return (lh+rh+1);
+    }
+    public static int sum(node root){
+        if(root==null){
+            return 0;
+        }
+        if(root.left==null&& root.right==null){
+            return root.data;
+        }
+        int ls=sum(root.left);
+        int Rs=sum(root.right);
+        return (ls+Rs);
+    }
+    public static int diameter_approch1(node root){
+        if(root==null){
+            return 0;
+        }
+        int ld=diameter_approch1(root.left);
+        int rd=diameter_approch1(root.right);
+        int lh=height(root.left);
+        int rh=height(root.right);
+        return Math.max(Math.max(ld, rd),lh+rh+1);
+    }
     public static void main(String[] args) {
         int nodes[]={1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
         Binarytree tree= new Binarytree();
         node root=tree.buildtree(nodes);
-        levelorder(root);
+        System.out.println(diameter_approch1(root));
     }
 }
