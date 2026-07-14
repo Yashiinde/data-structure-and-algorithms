@@ -1,1 +1,1 @@
-root
+Binarytree tree= new Binarytree();

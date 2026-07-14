@@ -115,10 +115,66 @@ public class cretation {
         int rh=height(root.right);
         return Math.max(Math.max(ld, rd),lh+rh+1);
     }
+    static class Info{
+        int diam;
+        int ht;
+
+        Info(int diam,int ht){
+            this.diam=diam;
+            this.ht=ht;
+        }
+    }
+    public static Info diameter_approach2(node root){
+        if(root==null){
+            return new Info(0, 0);
+        }
+        Info leftInfo=diameter_approach2(root.left);
+        Info rightInfo=diameter_approach2(root.right);
+        int diam=Math.max(Math.max(leftInfo.diam, rightInfo.diam), leftInfo.ht+rightInfo.ht+1);
+        int ht=Math.max(leftInfo.ht, rightInfo.ht)+1;
+        return new Info(diam, ht);
+    }
+    public static boolean isidentical(node node,node subroot){
+        if(node==null && subroot==null){
+            return true;
+        }else if(node==null || subroot==null || node.data!=subroot.data){
+            return false;
+        }
+        if(!isidentical(node.left, subroot.left)){
+            return false;
+        }
+        if(!isidentical(node.right, subroot.right)){
+            return false;
+        }
+        return true;
+    }
+    public static boolean issubtree(node root,node subroot){
+        if(root==null){
+            return false;
+        }
+        if(root.data==subroot.data){
+            if(isidentical(root,subroot)){
+                return true;
+            }
+
+        }
+       return issubtree(root.left, subroot) || issubtree(root.right, subroot);
+    }
     public static void main(String[] args) {
-        int nodes[]={1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
-        Binarytree tree= new Binarytree();
-        node root=tree.buildtree(nodes);
-        System.out.println(diameter_approch1(root));
+        
+        // Binarytree tree= new Binarytree();
+        node root=new node(1);
+        root.left=new node(2);
+        root.right=new node(3);
+        root.left.left=new node(4);
+        root.left.right=new node(5);
+        root.right.left=new node(6);
+        root.right.right=new node(7);
+        
+        node subroot=new node(2);
+        subroot.left=new node(4);
+        subroot.right=new node(5);
+
+        System.out.println(issubtree(root, subroot));
     }
 }
