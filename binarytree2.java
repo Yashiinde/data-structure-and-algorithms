@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class cretation {
+public class binarytree2 {
     static class node{
         int data;
         node left;
@@ -115,6 +115,8 @@ public class cretation {
         int rh=height(root.right);
         return Math.max(Math.max(ld, rd),lh+rh+1);
     }
+
+    //  diameter of binary tree
     static class Info{
         int diam;
         int ht;
@@ -134,6 +136,8 @@ public class cretation {
         int ht=Math.max(leftInfo.ht, rightInfo.ht)+1;
         return new Info(diam, ht);
     }
+
+    //  subtreee in tree
     public static boolean isidentical(node node,node subroot){
         if(node==null && subroot==null){
             return true;
@@ -160,6 +164,54 @@ public class cretation {
         }
        return issubtree(root.left, subroot) || issubtree(root.right, subroot);
     }
+
+    // top view int binary tree
+    static class dinfo{
+        int hd;
+        node node;
+
+        public dinfo(int hd,node node){
+            this.node=node;
+            this.hd=hd;
+        }
+    }
+    public static void topview(node root){
+        Queue<dinfo> q= new LinkedList<>();
+        HashMap<Integer,node> map=new HashMap<>();
+        int min=0,max=0;
+        q.add(new dinfo(0, root));
+        q.add(null);
+        while(!q.isEmpty()){
+            dinfo curr=q.remove();
+            if(curr==null){
+                if(q.isEmpty()){
+                    break;
+                }else{
+                    q.add(null);
+                    
+                }
+            }else{
+                if(!map.containsKey(curr.hd)){
+                map.put(curr.hd, curr.node);
+            }
+            if(curr.node.left!=null){
+                q.add(new dinfo(curr.hd-1, curr.node.left));
+                min = Math.min(min, curr.hd-1);
+
+            } 
+            if(curr.node.right!=null){
+                q.add(new dinfo(curr.hd+1, curr.node.right));
+                max = Math.max(max, curr.hd+1);
+        }
+            }
+            
+    }
+            for(int i=min;i<=max;i++){
+                System.out.print(map.get(i).data+" ");
+            }
+            System.out.println();
+
+    }
     public static void main(String[] args) {
         
         // Binarytree tree= new Binarytree();
@@ -170,11 +222,6 @@ public class cretation {
         root.left.right=new node(5);
         root.right.left=new node(6);
         root.right.right=new node(7);
-        
-        node subroot=new node(2);
-        subroot.left=new node(4);
-        subroot.right=new node(5);
-
-        System.out.println(issubtree(root, subroot));
+        topview(root);
     }
 }

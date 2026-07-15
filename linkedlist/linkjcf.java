@@ -21,6 +21,7 @@ public class linkjcf {
     ll.add(1, 5);
     System.out.println(ll);
     
+    System.out.println(ll.getLast());
         
     System.out.println(ll.get(ll.size()/2));
     }
