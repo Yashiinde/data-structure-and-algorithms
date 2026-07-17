@@ -67,6 +67,30 @@ public class k_level {
        }
        return root;
     }
+    public static int dist(Node root, int n){
+        if(root==null){
+            return -1;
+        }
+        if(root.data==n){
+            return 0;
+        }
+        int leftdist=dist(root.left, n);
+        int rightdist=dist(root.right, n);
+        if(rightdist==-1 && leftdist ==-1){
+            return -1;
+        }else if(rightdist==-1){
+            return leftdist+1;
+        }else{
+            return rightdist+1;
+        }
+    }
+    public static int mindistance(Node root , int n1,int n2){
+        Node lca = lca2(root, n1, n2);
+        
+        int dist1=dist(lca, n1);
+        int dist2=dist(lca, n2);
+        return dist1 + dist2;
+    }
     public static void main(String[] args) {
        Node root= new Node(1);
        root.left=new Node(2);
@@ -75,6 +99,6 @@ public class k_level {
        root.left.right= new Node(5);
        root.right.left= new Node(6);
        root.right.right= new Node(7);
-       System.out.println(lca2(root, 4, 5).data);
+       System.out.println(mindistance(root, 4, 3));
     }
 }
